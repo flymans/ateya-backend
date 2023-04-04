@@ -7,9 +7,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const configService = app.get(ConfigService);
-  if (configService.get('NODE_ENV') === 'development') {
-    app.enableCors();
-  }
+  app.enableCors({
+    origin: ['https://ateya.surge.sh', 'http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Origin', 'Content-Type', 'Accept'],
+    credentials: true,
+  });
 
   const port = configService.get('PORT');
   await app.listen(port);
