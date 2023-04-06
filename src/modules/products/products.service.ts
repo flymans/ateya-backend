@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { Product } from './products.model';
 
 @Injectable()
@@ -9,7 +9,13 @@ export class ProductsService {
   ) {}
 
   async get(id): Promise<Product> {
-    return this.productsRepository.findOne<Product>({ where: { id: id } });
+    const product = await this.productsRepository.findOne<Product>({
+      where: { id: id },
+    });
+    if (!product) {
+      throw new NotFoundException('Продукт не найден');
+    }
+    return product;
   }
 
   async create(product): Promise<string> {
