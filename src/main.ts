@@ -7,13 +7,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const configService = app.get(ConfigService);
-  const allowedOrigins =
-    configService.get('NODE_ENV') === 'production'
-      ? ['https://ateya.surge.sh']
-      : ['https://ateya.surge.sh', 'http://localhost:3000'];
 
   app.enableCors({
-    origin: allowedOrigins,
+    origin: [configService.get('FRONTEND_URL')],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Origin', 'Content-Type', 'Accept'],
     credentials: true,

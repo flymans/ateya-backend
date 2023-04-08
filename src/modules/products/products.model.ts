@@ -1,4 +1,4 @@
-import { Model, Table, Column, DataType } from 'sequelize-typescript';
+import { Model, Table, Column, DataType, Default } from 'sequelize-typescript';
 
 @Table
 export class Product extends Model<Product> {
@@ -20,4 +20,8 @@ export class Product extends Model<Product> {
 
   @Column(DataType.STRING)
   responsible: string;
+
+  @Default({})
+  @Column(DataType.JSONB)
+  previousValues: { pavilion: string; responsible: string };
 }

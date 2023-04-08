@@ -20,7 +20,7 @@ import { Product } from '../products/products.model';
 
         sequelize.addModels([Product]);
 
-        await sequelize.sync();
+        await sequelize.sync({ alter: true }); //dirty way to change schema
 
         return sequelize;
       },
