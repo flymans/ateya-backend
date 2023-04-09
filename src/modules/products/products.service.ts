@@ -23,7 +23,6 @@ export class ProductsService {
 
   async update(id: string, product: Product): Promise<string> {
     const productToUpdate = await this.productsRepository.findOne<Product>({ where: { id } });
-    console.log({ productToUpdate, product });
 
     const previousValues = {
       ...(productToUpdate.pavilion !== product.pavilion && { pavilion: productToUpdate.pavilion }),
